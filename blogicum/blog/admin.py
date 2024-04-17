@@ -5,9 +5,7 @@ from .models import Category, Location, Post
 admin.site.empty_value_display = '---'
 
 
-# насчет коммента про регистрацию моделей через декораторы
-# @admin.register(site=admin.site)
-# так не выходит, ссылка на стак не особо помогла
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         'author',
@@ -39,6 +37,7 @@ class PostInline(admin.StackedInline):
     extra = 0
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     inlines = (
         PostInline,
@@ -48,6 +47,4 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Category, CategoryAdmin)
-admin.site.register(Post, PostAdmin)
 admin.site.register(Location)

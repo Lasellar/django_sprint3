@@ -8,11 +8,9 @@ User = get_user_model()
 class Category(IsPublishedModel):
     title = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Заголовок'
     )
     description = models.TextField(
-        null=False,
         verbose_name='Описание'
     )
     slug = models.SlugField(
@@ -35,7 +33,6 @@ class Category(IsPublishedModel):
 class Location(IsPublishedModel):
     name = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Название места'
     )
 
@@ -51,15 +48,12 @@ class Location(IsPublishedModel):
 class Post(IsPublishedModel):
     title = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Заголовок'
     )
     text = models.TextField(
-        null=False,
         verbose_name='Текст'
     )
     pub_date = models.DateTimeField(
-        null=False,
         verbose_name='Дата и время публикации',
         help_text='Если установить дату и время в будущем '
                   '— можно делать отложенные публикации.'
@@ -67,23 +61,22 @@ class Post(IsPublishedModel):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        null=False,
         verbose_name='Автор публикации',
-        related_name='post_author',
+        related_name='posts',
     )
     category = models.ForeignKey(
         'Category',
         on_delete=models.CASCADE,
         null=True,
         verbose_name='Категория',
-        related_name='posts_category',
+        related_name='posts',
     )
     location = models.ForeignKey(
         'Location',
         on_delete=models.SET_NULL,
         null=True,
         verbose_name='Местоположение',
-        related_name='posts_location',
+        related_name='posts',
     )
 
     class Meta:
